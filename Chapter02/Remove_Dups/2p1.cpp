@@ -10,6 +10,8 @@
 #include<list>
 #include<time.h>
 #include<stdlib.h>
+#include<unordered_map>
+
 using namespace std;
 
 #define d_type int
@@ -66,6 +68,34 @@ void print_list(list<d_type> &nums)
 }
 
 
+void rem_dup(list<d_type> &nums)
+{
+  // Store elements in hashmap as a buffer
+  unordered_map< d_type, list<d_type>::iterator> entries;
+  for(list<d_type>::iterator it = nums.begin(); it != nums.end(); ++it)
+    {
+
+      //printf("it: %d\n", *it);
+      //printf("MapSize: %d\n", (int)entries.size());
+
+      
+      // If value is not duplicate, add to map
+      if (entries.find(*it) == entries.end())
+	entries.insert({*it, it});
+
+      // If value exists in map, delete current list element
+      else
+	{
+	  it = nums.erase(it);
+	  it--;
+	}
+    }
+  
+}
+
+
+/*
+
 // O(1) space, O(N^2) time
 void rem_dup(list<d_type> &nums)
 {
@@ -94,3 +124,6 @@ void rem_dup(list<d_type> &nums)
       //print_list(nums);
     }
 }
+
+
+*/
